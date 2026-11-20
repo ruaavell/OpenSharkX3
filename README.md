@@ -1,4 +1,4 @@
-# 🦈 OpenSharkX3
+
 
 <p align="center">
   <img
