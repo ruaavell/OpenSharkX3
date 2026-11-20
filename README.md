@@ -160,7 +160,6 @@ OpenSharkX3 is developed and tested against a real Attack Shark X3 receiver.
 | DPI configuration writes | 🧪 Experimental |
 | Sensor configuration | 🧪 Experimental |
 | Button remapping | 🧪 Experimental |
-| Configurable RGB | ⚠️ Not confirmed |
 | Custom macro upload | ❌ Not implemented |
 | Bluetooth configuration writes | ❌ Not implemented |
 
