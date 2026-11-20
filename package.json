@@ -1,0 +1,30 @@
+{
+  "name": "opensharkx11",
+  "version": "2.0.1",
+  "description": "Attack Shark X11 — native Linux configurator",
+  "author": "Clevs",
+  "license": "MIT",
+  "scripts": {
+    "dev": "tauri dev",
+    "build": "bash scripts/tauri-build.sh",
+    "dev:renderer": "vite",
+    "build:renderer": "vite build"
+  },
+  "dependencies": {
+    "@fontsource/archivo": "^5.2.8",
+    "@fontsource/chakra-petch": "^5.2.5",
+    "@fontsource/inter": "^5.2.5",
+    "@fontsource/jetbrains-mono": "^5.2.5",
+    "@tauri-apps/api": "^2",
+    "@vitejs/plugin-react": "^4.7.0",
+    "lucide-react": "^1.77.0",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7"
+  },
+  "devDependencies": {
+    "@tauri-apps/cli": "^2",
+    "@types/node": "^25.9.1",
+    "typescript": "^5.9.3",
+    "vite": "^7.3.3"
+  }
+}
