@@ -1,5 +1,12 @@
 # 🦈 OpenSharkX3
-<img width="403" height="481" alt="0x0" src="https://github.com/user-attachments/assets/0f401b0f-5df9-4a46-9445-87727d072f81" />
+<p align="center">
+  <img
+    width="403"
+    height="481"
+    alt="OpenSharkX3"
+    src="https://github.com/user-attachments/assets/0f401b0f-5df9-4a46-9445-87727d072f81"
+  />
+</p>
 
 ### Open-source Attack Shark X3 configuration software for Linux
 
