@@ -224,11 +224,11 @@ OpenSharkX3 is designed for Linux desktop environments.
 |---|---|
 | Arch Linux | Primary development platform |
 | CachyOS | Supported target |
-| Debian | Planned / testing |
-| Ubuntu | Planned / testing |
-| Fedora | Planned / testing |
-| Linux Mint | Planned / testing |
-| openSUSE | Planned / testing |
+| Debian | Supported target  |
+| Ubuntu |  Supported target  |
+| Fedora |  Supported target  |
+| Linux Mint |  Supported target  |
+| openSUSE |  Supported target  |
 
 The tested development environment is Arch Linux.
 
