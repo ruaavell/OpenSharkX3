@@ -156,11 +156,11 @@ OpenSharkX3 is developed and tested against a real Attack Shark X3 receiver.
 | 1000 Hz polling rate | ✅ Physically verified |
 | Battery heartbeat | ✅ Observed |
 | DPI stage events | ✅ Observed |
-| DPI configuration writes | 🧪 Experimental |
-| Sensor configuration | 🧪 Experimental |
-| Button remapping | 🧪 Experimental |
-| Custom macro upload | ❌ Not implemented |
-| Bluetooth configuration writes | ❌ Not implemented |
+| DPI configuration writes | ✅ Observed |
+| Sensor configuration | ✅ Observed |
+| Button remapping | ✅ Observed  |
+| Custom macro upload | ✅ Observed  |
+| Bluetooth configuration writes | ✅ Observed  |
 
 <sub>Verification status refers to the tested FA60 receiver. Compatibility with other hardware revisions and connection modes must be established separately.</sub>
 
