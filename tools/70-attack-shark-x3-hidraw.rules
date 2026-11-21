@@ -1,0 +1,5 @@
+# X3 probe için hidraw erişimi (root gerekmeden).
+# DİKKAT: dosya adı 73'ten KÜÇÜK bir sayıyla başlamalı; "uaccess" etiketi
+# 73-seat-late.rules'tan önce konmazsa ACL uygulanmaz (99-... ile çalışmaz).
+KERNEL=="hidraw*", ATTRS{idVendor}=="1d57", ATTRS{idProduct}=="fa60", MODE="0660", TAG+="uaccess"
+KERNEL=="hidraw*", ATTRS{idVendor}=="1d57", ATTRS{idProduct}=="fa55", MODE="0660", TAG+="uaccess"
