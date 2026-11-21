@@ -7,6 +7,9 @@ mod state;
 mod tray;
 
 use state::ManagedState;
+use std::io::Write;
+use std::os::unix::net::{UnixListener, UnixStream};
+use std::sync::{Arc, Mutex};
 use tauri::Manager;
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
@@ -20,10 +23,43 @@ pub fn run() {
 
     let background = std::env::args().any(|a| a == "--background" || a == "--minimized");
 
+    // Single instance: if another copy is already running, ask it to show its
+    // window and exit immediately instead of opening a second copy.
+    let config_dir = dirs::config_dir().unwrap_or_else(|| std::path::PathBuf::from("."));
+    let app_dir = config_dir.join("opensharkx3");
+    let _ = std::fs::create_dir_all(&app_dir);
+    let socket_path = app_dir.join("instance.sock");
+    for _ in 0..20 {
+        if let Ok(mut stream) = UnixStream::connect(&socket_path) {
+            let _ = stream.write_all(b"show\n");
+            std::process::exit(0);
+        }
+        std::thread::sleep(std::time::Duration::from_millis(50));
+    }
+    let _ = std::fs::remove_file(&socket_path);
+    let listener = UnixListener::bind(&socket_path).ok();
+    let listener = Arc::new(Mutex::new(listener));
+
     tauri::Builder::default()
         .manage(ManagedState::new())
         .setup(move |app| {
             tray::create_tray(app.handle())?;
+
+            // Listen for "show" requests from later launches and restore the
+            // existing window instead of allowing a second instance.
+            let app_handle = app.handle().clone();
+            let listener = listener.clone();
+            std::thread::spawn(move || {
+                let Ok(guard) = listener.lock() else { return; };
+                let Some(listener) = guard.as_ref() else { return; };
+                for stream in listener.incoming() {
+                    let _ = stream;
+                    if let Some(win) = app_handle.get_webview_window("main") {
+                        let _ = win.show();
+                        let _ = win.set_focus();
+                    }
+                }
+            });
 
             // DPI overlay window: transparent, always-on-top, hidden until needed.
             use tauri::{WebviewUrl, WebviewWindowBuilder};
