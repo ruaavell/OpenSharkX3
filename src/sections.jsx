@@ -409,6 +409,40 @@ export function PerformanceSection({ ctx }) {
             <div className="range-ends"><span>4 ms · {t('lt.fast')}</span><span>50 ms · {t('lt.slow')}</span></div>
           </Panel>
 
+          <Panel title={t('perf.power')} subtitle={t('perf.experimental')}>
+            <div className="slider-head">
+              <span>{t('perf.sleep')}</span>
+              <strong>{state.sleepTime} <small>min</small></strong>
+            </div>
+            <input
+              type="range"
+              min="0.5"
+              max="30"
+              step="0.5"
+              value={state.sleepTime}
+              onChange={e => ctx.set({ sleepTime: clamp(num(e.target.value, 10), 0.5, 30) })}
+              aria-label={t('perf.sleep')}
+            />
+            <div className="range-ends"><span>0.5 min</span><span>30 min</span></div>
+            <p className="field-hint">{t('perf.sleep.desc')}</p>
+
+            <div className="slider-head">
+              <span>{t('perf.deepSleep')}</span>
+              <strong>{state.deepSleepTime} <small>min</small></strong>
+            </div>
+            <input
+              type="range"
+              min="1"
+              max="60"
+              step="1"
+              value={state.deepSleepTime}
+              onChange={e => ctx.set({ deepSleepTime: clamp(num(e.target.value, 10), 1, 60) })}
+              aria-label={t('perf.deepSleep')}
+            />
+            <div className="range-ends"><span>1 min</span><span>60 min</span></div>
+            <p className="field-hint">{t('perf.deepSleep.desc')}</p>
+          </Panel>
+
           <div className="apply-card">
             <div>
               <strong>{t('perf.apply')}</strong>

@@ -116,6 +116,8 @@ function mainCfgToReact(cfg) {
     speed: Math.max(1, Math.min(10, Math.round((cfg.lighting?.ledSpeed || 3) * 10 / 5))),
     polling: cfg.pollingRate || 1000,
     debounce: cfg.performance?.keyResponse || 4,
+    sleepTime: cfg.power?.sleepTime ?? 10,
+    deepSleepTime: cfg.power?.deepSleepTime ?? 10,
     bindings: cfg.buttons
       ? Object.fromEntries(Object.entries(cfg.buttons).map(([k, b]) => {
           const rxKey = MAIN_TO_RX[k] || k
@@ -154,6 +156,7 @@ function reactCfgToMain(state) {
     // local preference intact but never transmit an unsupported rate.
     pollingRate: (state.conn === 'bluetooth' || state.conn === 'usb') ? Math.min(state.polling, 125) : state.polling,
     performance: { keyResponse: Math.max(4, Math.min(50, state.debounce % 2 === 0 ? state.debounce : state.debounce + 1)) },
+    power: { sleepTime: state.sleepTime, deepSleepTime: state.deepSleepTime },
     buttons: Object.fromEntries(
       Object.entries(state.bindings || {}).map(([k, b]) => [RX_TO_MAIN[k] || k, bindingToMain(b)])
     ),
@@ -189,7 +192,7 @@ export default function App() {
     dpi: DPI_DEFAULT.map(d => ({ ...d })), activeStage: 2,
     angleSnap: false, ripple: true, liftOff: false, motionSync: false,
     mode: 'staticdpi', color: '#38d6f5', speed: 6, battOverride: true,
-    polling: 1000, debounce: 4,
+    polling: 1000, debounce: 4, sleepTime: 10, deepSleepTime: 10,
     bindings: Object.fromEntries(BUTTONS.map(b => [b.id, { type: 'native', action: b.def }])),
     customMacro: { enabled: false, targetButton: 4, mode: 0, repeat: 1, events: [{ key: 'KeyA', delay: 20, release: false }] },
     profiles: [],
@@ -331,7 +334,7 @@ export default function App() {
       try {
         const info = await api.checkUpdate()
         if (info?.available && info.downloadUrl) {
-          setToast({ kind: 'info', text: `Güncelleme ${info.latestVersion} indiriliyor...` })
+          showToast(`Güncelleme ${info.latestVersion} indiriliyor...`)
           await api.applyUpdate(info.downloadUrl)
         }
       } catch (e) {

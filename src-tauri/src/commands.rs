@@ -1223,10 +1223,34 @@ pub async fn apply_update(url: String) -> Result<(), String> {
         p.set_mode(0o755);
         std::fs::set_permissions(&tmp, p).map_err(|e| e.to_string())?;
     }
-    let exe = std::env::current_exe().map_err(|e| e.to_string())?;
-    std::fs::rename(&tmp, &exe).map_err(|e| format!("replace failed: {e}"))?;
-    // restart
-    std::process::Command::new(&exe).spawn().map_err(|e| e.to_string())?;
+
+    // The distributed AppImage needs FUSE, which is not guaranteed to be
+    // installed. Extract it into the user application directory instead and
+    // restart through the (FUSE-free) wrapper created by install.sh.
+    let home = dirs::home_dir().ok_or("home directory not found")?;
+    let base = home.join(".local").join("share").join("opensharkx3");
+    std::fs::create_dir_all(&base).map_err(|e| e.to_string())?;
+    let squash = base.join("squashfs-root");
+    if squash.exists() {
+        let _ = std::fs::remove_dir_all(&squash);
+    }
+    let status = std::process::Command::new(&tmp)
+        .arg("--appimage-extract")
+        .current_dir(&base)
+        .status()
+        .map_err(|e| format!("extract failed: {e}"))?;
+    if !status.success() {
+        return Err("appimage extraction failed".into());
+    }
+    let appdir = base.join("appimage");
+    if appdir.exists() {
+        let _ = std::fs::remove_dir_all(&appdir);
+    }
+    std::fs::rename(&squash, &appdir).map_err(|e| format!("rename extracted app failed: {e}"))?;
+
+    let wrapper = home.join(".local").join("bin").join("opensharkx3");
+    let restart = if wrapper.exists() { wrapper } else { appdir.join("AppRun") };
+    std::process::Command::new(&restart).spawn().map_err(|e| e.to_string())?;
     std::process::exit(0);
 }
 
