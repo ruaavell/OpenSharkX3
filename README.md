@@ -606,5 +606,5 @@ This project builds upon and acknowledges the original OpenSharkX11 project and 
   <br />
   Bringing the Attack Shark X3 experience to Linux.
   <br /><br />
-  <sub>Built with Rust. Made for Linux. Powered by the community. thanks for https://github.com/iago-fragnan/attack-shark-x11-linux - </sub>
+  <sub>Built with Rust. Made for Linux. Powered by the community. thanks for https://github.com/iago-fragnan/attack-shark-x11-linux - https://github.com/yourchocomate/attacksharkx3 </sub>
 </p>
