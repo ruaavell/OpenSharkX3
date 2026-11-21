@@ -200,6 +200,14 @@ For detailed technical information, see:
 
 <p align="center">
  <img width="1282" height="864" alt="Ekran Görüntüsü 2026-11-21 03-39-16" src="https://github.com/user-attachments/assets/1118f527-da7e-4e7d-808d-782cbe27d6a6" />
+  <img width="1282" height="864" alt="Ekran Görüntüsü 2026-11-21 03-42-12" src="https://github.com/user-attachments/assets/f1bc3b0d-7868-44b4-9b23-708e86b31c10" />
+<img width="1282" height="864" alt="Ekran Görüntüsü 2026-11-21 03-42-05" src="https://github.com/user-attachments/assets/326b3fe8-50d5-470a-9dcc-7b4d4d558d4f" />
+<img width="1282" height="864" alt="Ekran Görüntüsü 2026-11-21 03-41-59" src="https://github.com/user-attachments/assets/1457d1f7-ade7-46b5-adaa-208aafe5aa7b" />
+<img width="1282" height="864" alt="Ekran Görüntüsü 2026-11-21 03-41-55" src="https://github.com/user-attachments/assets/7843513b-8658-4d2c-844f-255df8ce2eba" />
+<img width="1282" height="864" alt="Ekran Görüntüsü 2026-11-21 03-41-50" src="https://github.com/user-attachments/assets/23428f58-d5f9-4369-af99-bc69d147f846" />
+<img width="1282" height="864" alt="Ekran Görüntüsü 2026-11-21 03-41-45" src="https://github.com/user-attachments/assets/e9f75589-5c40-4c3e-bf36-b3d2aadfe69c" />
+<img width="1282" height="864" alt="Ekran Görüntüsü 2026-11-21 03-41-37" src="https://github.com/user-attachments/assets/be454008-63bd-42b8-927f-7f0ee836737b" />
+
 </p>
 
 <p align="center">
