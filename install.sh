@@ -4,8 +4,8 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-APPIMAGE="$SCRIPT_DIR/src-tauri/target/release/bundle/appimage/OpenSharkX3_2.0.1_amd64.AppImage"
-DEB="$SCRIPT_DIR/src-tauri/target/release/bundle/deb/OpenSharkX3_2.0.1_amd64.deb"
+APPIMAGE="$SCRIPT_DIR/src-tauri/target/release/bundle/appimage/OpenSharkX3_2.0.2_amd64.AppImage"
+DEB="$SCRIPT_DIR/src-tauri/target/release/bundle/deb/OpenSharkX3_2.0.2_amd64.deb"
 
 MODE="${1:-user}"   # user | system | deb
 
