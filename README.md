@@ -199,7 +199,8 @@ For detailed technical information, see:
 ## 🖥️ Interface
 
 <p align="center">
-  <img src="docs/images/interface.png" alt="OpenSharkX3 desktop interface" width="900" />
+  <img width="1282" height="864" alt="Ekran Görüntüsü 2026-11-21 03-39-16" src="https://github.com/user-attachments/assets/e3bddfb3-0dc4-4b08-8ca8-d8b819a8a076" />
+
 </p>
 
 <p align="center">
