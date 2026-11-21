@@ -213,38 +213,6 @@ For detailed technical information, see:
 </p>
 
 The application combines device monitoring, configuration controls, profiles and hardware diagnostics in a unified desktop experience.
-
----
-
-## 🐧 Linux Compatibility
-
-OpenSharkX3 is designed for Linux desktop environments.
-
-| Distribution | Support Target |
-|---|---|
-| Arch Linux | Primary development platform |
-| CachyOS | Supported target |
-| Debian | Planned / testing |
-| Ubuntu | Planned / testing |
-| Fedora | Planned / testing |
-| Linux Mint | Planned / testing |
-| openSUSE | Planned / testing |
-
-The tested development environment is Arch Linux.
-
-Compatibility with other distributions depends on WebKitGTK, GTK, HIDRAW permissions, BlueZ availability and hardware revisions.
-
-### Desktop environments
-
-- GNOME
-- KDE Plasma
-- Other GTK/WebKit-compatible desktop environments
-
-Wayland and X11 environments are considered in the application design.
-
----
-
-
 ## 📦 Installation
 
 OpenSharkX3 is primarily developed and hardware-tested on Arch Linux. The instructions below cover source builds and installation of generated packages.
@@ -375,6 +343,35 @@ npm run dev
 
 The optional `start.sh` script is an Arch Linux development bootstrap. It checks dependencies, configures udev when needed, runs read-only diagnostics and starts the development application. It is not a release installer.
 
+---
+
+## 🐧 Linux Compatibility
+
+OpenSharkX3 is designed for Linux desktop environments.
+
+| Distribution | Support Target |
+|---|---|
+| Arch Linux | Primary development platform |
+| CachyOS | Supported target |
+| Debian | Planned / testing |
+| Ubuntu | Planned / testing |
+| Fedora | Planned / testing |
+| Linux Mint | Planned / testing |
+| openSUSE | Planned / testing |
+
+The tested development environment is Arch Linux.
+
+Compatibility with other distributions depends on WebKitGTK, GTK, HIDRAW permissions, BlueZ availability and hardware revisions.
+
+### Desktop environments
+
+- GNOME
+- KDE Plasma
+- Other GTK/WebKit-compatible desktop environments
+
+Wayland and X11 environments are considered in the application design.
+
+---
 
 ## 🏗️ Technology Stack
 
