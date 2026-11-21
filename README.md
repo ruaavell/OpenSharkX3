@@ -47,12 +47,11 @@ Every value in the UI is tagged `LOCAL`, `TRANSMITTED`, `ACK` or `VERIFIED`. An 
 | **Buttons** | Remap all 8 buttons: native mouse actions, custom keyboard shortcuts |
 | **Performance** | Polling rate (125 / 250 / 500 / 1000 Hz) · debounce (4–50 ms) · 250–1000 Hz disabled in USB-C mode (max 125 Hz) |
 | **Profiles** | Save, load, rename, duplicate, delete, import and export configuration profiles (never writes to the device) |
-| **Battery** | Real-time monitor · automatic LED override at critical level |
+| **Battery** <img width="75" height="33" alt="Ekran Görüntüsü 2026-11-21 17-01-29" src="https://github.com/user-attachments/assets/d57032fd-312b-4a9c-b9a1-d7c47254202e" />| Real-time monitor · automatic LED override at critical level |
 | **Macros** | Local macro library and timeline editor (key, delay, release, reorder) — stored locally, never uploaded |
 | **Diagnostics** | hidraw node discovery · report descriptor dump · real polling-interval measurement |
 | **Dashboard** | Live connection, battery, polling, DPI and activity overview · auto-detects 2.4 GHz, USB-C, and Bluetooth |
 | **Settings** | Turkish / English / Portuguese / Chinese · dark and light themes · accent color · about and credits |
-<img width="75" height="33" alt="Ekran Görüntüsü 2026-11-21 17-01-29" src="https://github.com/user-attachments/assets/d57032fd-312b-4a9c-b9a1-d7c47254202e" />
 
 > **Tri-mode support**: the "Search mouse" button automatically tries 2.4 GHz dongle → USB-C cable → Bluetooth BLE in sequence. A dedicated BT button is also available when disconnected.
 
