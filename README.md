@@ -215,4 +215,4 @@ scripts/                — .deb udev install/remove hooks
 
 ## License
 
-[MIT](LICENSE) © Clevs
+[MIT](LICENSE) © Ruavell
