@@ -1,0 +1,56 @@
+
+# Rust build
+/target/
+/src-tauri/target/
+
+# Node.js
+/node_modules/
+/dist/
+/.vite/
+/coverage/
+
+# Tauri generated output
+/src-tauri/gen/schemas/
+
+# Build artifacts
+*.AppImage
+*.deb
+*.rpm
+*.dmg
+*.exe
+
+# Diagnostic captures and archives
+*.pcap
+*.pcapng
+*.zip
+diagnostics/
+diagnostic-output/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Environment secrets
+.env
+.env.*
+!.env.example
+
+# Private keys
+*.pem
+*.key
+*.p12
+
+# Operating system
+.DS_Store
+Thumbs.db
+
+# Editors
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Temporary files
+*.tmp
+*.bak
+
