@@ -109,6 +109,8 @@ function mainCfgToReact(cfg) {
     activeStage: cfg.dpi?.activeStage ?? 2,
     angleSnap: cfg.dpi?.angleSnap ?? false,
     ripple: cfg.dpi?.rippleControl ?? true,
+    liftOff: cfg.dpi?.lod2mm ?? false,
+    motionSync: cfg.dpi?.motionSync ?? false,
     mode: NUM_TO_MODE[cfg.lighting?.mode] || 'staticdpi',
     color: cfg.lighting?.globalColor ? rgbToHex(cfg.lighting.globalColor) : '#38d6f5',
     speed: Math.max(1, Math.min(10, Math.round((cfg.lighting?.ledSpeed || 3) * 10 / 5))),
@@ -139,6 +141,8 @@ function reactCfgToMain(state) {
       activeStage: state.activeStage,
       angleSnap: state.angleSnap,
       rippleControl: state.ripple,
+      lod2mm: state.liftOff,
+      motionSync: state.motionSync,
     },
     lighting: {
       mode: MODE_TO_NUM[state.mode] ?? 0x50,
@@ -183,7 +187,7 @@ export default function App() {
   const [state, setState] = useState(() => ({
     conn: 'disconnected', batt: 0, battKnown: false,
     dpi: DPI_DEFAULT.map(d => ({ ...d })), activeStage: 2,
-    angleSnap: false, ripple: true,
+    angleSnap: false, ripple: true, liftOff: false, motionSync: false,
     mode: 'staticdpi', color: '#38d6f5', speed: 6, battOverride: true,
     polling: 1000, debounce: 4,
     bindings: Object.fromEntries(BUTTONS.map(b => [b.id, { type: 'native', action: b.def }])),
@@ -248,7 +252,7 @@ export default function App() {
     return () => { alive = false; clearInterval(id) }
   }, [])
 
-  const battPct = state.battKnown ? state.batt : (deviceStatus?.batteryPercent ?? null)
+  const battPct = deviceStatus?.batteryPercent != null ? deviceStatus.batteryPercent : (state.battKnown ? state.batt : null)
 
   useEffect(() => {
     if (battPct != null) setBattUpdatedAt(Date.now())
@@ -346,6 +350,8 @@ export default function App() {
       let res = null
       for (const target of targets) res = await api.writeSetting(target, patch)
       setReceipts(res?.reports || [])
+      const rx = mainCfgToReact(res?.state)
+      if (rx) setState(s => ({ ...s, ...rx }))
       const toastKey = tag === 'lighting' ? 'toast.lightingApplied'
         : tag === 'buttons' ? 'toast.buttonsApplied'
         : tag === 'dpi' ? 'toast.dpiApplied' : 'toast.perfApplied'
@@ -359,7 +365,8 @@ export default function App() {
 
   const applyDpi = () => applyConfig(['dpi'], 'dpi')
   const applyBindings = () => applyConfig(['buttons'], 'buttons')
-  const applyPerf = () => applyConfig(['prefs', 'polling'], 'perf')
+  const applyPerf = () => applyConfig(['dpi', 'prefs', 'polling'], 'perf')
+  const applyLighting = () => applyConfig(['prefs'], 'lighting')
 
   const measurePolling = useCallback(async () => {
     if (!api) return null
@@ -470,7 +477,7 @@ export default function App() {
   const ctx = {
     state, set, mouseProps, t, lang, tAct: (s) => _tAct(s, lang), goTo: setSection,
     theme, setTheme, setLang, accent, setAccent, api,
-    connected, connecting, reconnect, applyDpi, applyBindings, applyPerf,
+    connected, connecting, reconnect, applyDpi, applyBindings, applyPerf, applyLighting,
     profileSave, profileLoad, profileDelete, profileRename, profileDuplicate, refreshProfiles,
     writeMode: deviceStatus?.writeMode || writeMode,
     receipts, deviceStatus, addLog, showToast, battPct, battColor, battUpdatedAt,

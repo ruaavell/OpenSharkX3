@@ -13,7 +13,6 @@ export const NAV_ICONS = {
   dpi: Crosshair,
   performance: Gauge,
   buttons: MousePointer2,
-  lighting: Lightbulb,
   macros: ListVideo,
   profiles: FolderOpen,
   diagnostics: Stethoscope,

@@ -25,6 +25,10 @@ pub struct DpiState {
     pub active_stage:  u8,
     pub angle_snap:    bool,
     pub ripple_control: bool,
+    #[serde(default)]
+    pub lod_2mm:       bool,
+    #[serde(default)]
+    pub motion_sync:   bool,
 }
 
 impl Default for DpiState {
@@ -34,6 +38,8 @@ impl Default for DpiState {
             active_stage:  2,
             angle_snap:    false,
             ripple_control: true,
+            lod_2mm:       false,
+            motion_sync:   false,
         }
     }
 }

@@ -31,8 +31,8 @@ fn build_dpi_cfg(s: &AppState) -> DpiConfig {
         active_stage: s.dpi.active_stage + 1,
         angle_snap: s.dpi.angle_snap,
         ripple_control: s.dpi.ripple_control,
-        lod_2mm: false,
-        motion_sync: false,
+        lod_2mm: s.dpi.lod_2mm,
+        motion_sync: s.dpi.motion_sync,
         stage_colors: s.lighting.stage_colors.clone(),
         led_mode: LedMode::Off,
     }
@@ -1112,7 +1112,7 @@ pub async fn autostart_enable(app: AppHandle) -> Result<(), String> {
     }
     let exe = std::env::current_exe().map_err(|e| e.to_string())?;
     let content = format!(
-        "[Desktop Entry]\nType=Application\nName=OpenSharkX3\nComment=Attack Shark X3 configurator\nExec=\"{}\" --background\nTerminal=false\nX-GNOME-Autostart-enabled=true\n",
+        "[Desktop Entry]\nType=Application\nName=OpenSharkX3\nComment=Attack Shark X3 configurator\nExec=\"{}\"\nTerminal=false\nX-GNOME-Autostart-enabled=true\n",
         exe.display()
     );
     std::fs::write(&path, content).map_err(|e| e.to_string())?;

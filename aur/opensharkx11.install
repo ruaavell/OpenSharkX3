@@ -1,0 +1,11 @@
+post_install() {
+  udevadm control --reload-rules 2>/dev/null || true
+  udevadm trigger 2>/dev/null || true
+  gtk-update-icon-cache -f /usr/share/icons/hicolor 2>/dev/null || true
+  echo "==> OpenSharkX3 installed! Re-plug the mouse, then open it from the application menu."
+}
+post_upgrade() {
+  udevadm control --reload-rules 2>/dev/null || true
+  gtk-update-icon-cache -f /usr/share/icons/hicolor 2>/dev/null || true
+}
+post_remove()  { echo "==> Config preserved at ~/.config/opensharkx3 (delete if you want)."; }

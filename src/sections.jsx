@@ -8,7 +8,7 @@ import {
   Palette, Pencil, Play, Plus, RefreshCw, RotateCcw, Save, ShieldCheck,
   Stethoscope, Terminal, Trash2, Unlock, Upload, Usb, Wifi, X, Zap,
 } from 'lucide-react'
-import { BUTTONS, NATIVE_ACTIONS, SHORTCUT_PRESETS, MODES, SWATCHES, DPI_DEFAULT, DPI_MAX, USB_LED_COLOR } from './data.jsx'
+import { BUTTONS, NATIVE_ACTIONS, SHORTCUT_PRESETS, MODES, SWATCHES, DPI_DEFAULT, DPI_MAX, USB_LED_COLOR, KEY_TO_HID } from './data.jsx'
 import { LANGS, ACCENTS, tModeName, tModeDesc } from './i18n.jsx'
 import { MouseStage } from './mouse.jsx'
 import {
@@ -377,17 +377,17 @@ export function PerformanceSection({ ctx }) {
             <SensorToggle
               title={t('perf.liftOff')}
               description={t('perf.liftOff.desc')}
-              on={false}
-              disabled
-              unsupported
+              on={state.liftOff}
+              onChange={() => ctx.set({ liftOff: !state.liftOff })}
+              experimental
               t={t}
             />
             <SensorToggle
               title={t('perf.motionSync')}
               description={t('perf.motionSync.desc')}
-              on={false}
-              disabled
-              unsupported
+              on={state.motionSync}
+              onChange={() => ctx.set({ motionSync: !state.motionSync })}
+              experimental
               t={t}
             />
           </Panel>
@@ -718,6 +718,9 @@ function readMacroLibrary() {
 
 export function MacroSection({ ctx }) {
   const { t } = ctx
+  const [recording, setRecording] = useState(false)
+  const recordStartRef = useRef(0)
+  const lastEventRef = useRef(0)
   const [library, setLibrary] = useState(() => {
     const saved = readMacroLibrary()
     if (saved) return saved
@@ -734,6 +737,43 @@ export function MacroSection({ ctx }) {
   const [confirmDelete, setConfirmDelete] = useState(null)
   const [saving, setSaving] = useState(false)
   const active = library.find(m => m.id === activeId) || null
+
+  useEffect(() => {
+    if (!recording) return
+    recordStartRef.current = Date.now()
+    lastEventRef.current = recordStartRef.current
+    const handler = (e) => {
+      const target = e.target
+      if (target && (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.tagName === 'SELECT')) return
+      const code = KEY_TO_HID?.[e.code]
+      if (code == null) return
+      e.preventDefault()
+      const now = Date.now()
+      const delay = Math.max(0, Math.min(10000, now - lastEventRef.current))
+      lastEventRef.current = now
+      const release = e.type === 'keyup'
+      // ensure an active macro exists
+      let targetMacro = active
+      if (!targetMacro) {
+        const id = 'macro-' + Date.now()
+        const m = { id, name: `${t('mac.new')} ${library.length + 1}`, enabled: false, targetButton: 4, mode: 0, repeat: 1, events: [] }
+        setLibrary(lib => [...lib, m])
+        setActiveId(id)
+        targetMacro = m
+      }
+      setLibrary(lib => lib.map(m => {
+        if (m.id !== (activeId || targetMacro?.id)) return m
+        return { ...m, events: [...(m.events || []), { key: code, delay, release }] }
+      }))
+    }
+    window.addEventListener('keydown', handler, true)
+    window.addEventListener('keyup', handler, true)
+    return () => {
+      window.removeEventListener('keydown', handler, true)
+      window.removeEventListener('keyup', handler, true)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [recording])
 
   useEffect(() => {
     try { localStorage.setItem(MACRO_KEY, JSON.stringify(library)) } catch (_) {}
@@ -819,7 +859,14 @@ export function MacroSection({ ctx }) {
       <div className="macros-layout">
         <Panel
           title={t('mac.library')}
-          actions={<button type="button" className="btn sm" onClick={addMacro}><Plus size={14} />{t('app.add')}</button>}
+          actions={
+            <>
+              <button type="button" className={'btn sm' + (recording ? ' danger-solid' : ' primary')} onClick={() => setRecording(r => !r)}>
+                {recording ? <X size={14} /> : <Activity size={14} />}{recording ? t('app.cancel') : t('mac.record')}
+              </button>
+              <button type="button" className="btn sm" onClick={addMacro}><Plus size={14} />{t('app.add')}</button>
+            </>
+          }
           className="macro-list-panel"
         >
           <div className="macro-list">
